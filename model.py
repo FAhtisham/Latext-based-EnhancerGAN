@@ -81,7 +81,7 @@ from tqdm import tqdm
 class Autoencoder(nn.Module):
     def __init__(self, nuc_pair_size, embedding_dims, e_hidden_dims, bottleneck_dims, d_hidden_dims, seq_length, dropout_size = 0):
         super().__init__()
-        nuc_pair_size+=1
+        nuc_pair_size +=1
         self.seq_length= seq_length
         # define the vars over here (layers, objects)
         self.embedding= nn.Embedding( nuc_pair_size, embedding_dims)
@@ -90,40 +90,40 @@ class Autoencoder(nn.Module):
         self.a1= nn.ReLU(True)
         self.dropout= nn.Dropout(dropout_size)
         self.fc2= nn.Linear(in_features = bottleneck_dims, out_features= d_hidden_dims)
-        self.rnn2= nn.LSTM(input_size= d_hidden_dims, hidden_size= d_hidden_dims, num_layers=2)
+        self.rnn2= nn.LSTM(input_size= d_hidden_dims, hidden_size= d_hidden_dims)#, num_layers=2)
         self.fc3= nn.Linear(in_features= d_hidden_dims, out_features= nuc_pair_size)
     
     def encoder(self, x):
-        print("encoder's x",x.size())
+        # print("encoder's x",x.size())
         x= self.embedding(x).permute(1,0,2)
-        print("encoder's x after emedding",x.size())
+        # print("encoder's x after emedding",x.size())
         _,(hidden_states, _)= self.rnn1(x)
-        print("encoder's hidd",hidden_states[1].size())
+        # print("encoder's hidd",hidden_states[1].size())
         hidden_states = hidden_states[1]
         hidden_states= hidden_states[None, :,:]
         lv= self.fc1(hidden_states) # latent vector
-        print("encoder's lv",lv.size())
+        # print("encoder's lv",lv.size())
         lv= self.dropout(lv)
-        print("encoder's lv",lv.size())
+        # print("encoder's lv",lv.size())
         return lv
     
     def decoder(self, lv):
-        import pdb
-        pdb.set_trace*()
-        print("dencoder's lv",lv.size())
+        # import pdb
+        # pdb.set_trace*()
+        # print("dencoder's lv",lv.size())
         lv= self.fc2(lv)
-        print("dencoder's lv 1st fc",lv.size())
+        # print("dencoder's lv 1st fc",lv.size())
         #output,_=self.rnn2(lv)
         
         output, _= self.rnn2(lv.repeat(self.seq_length,1,1),(lv,lv))
         # output=output[1]
         # output=output[None,:,:]
         #output,_=self.rnn2(lv)
-        print("dencoder's output rnn",output.size())
+        # print("dencoder's output rnn",output.size())
         output= output.permute(1,0,2)
-        print("dencoder's permute",output.size())
+        # print("dencoder's permute",output.size())
         logits= self.fc3(output)
-        print("dencoder's logits",logits.size())
+        # print("dencoder's logits",logits.size())
         return logits.transpose(1,2)
     
     
@@ -135,7 +135,7 @@ class Autoencoder(nn.Module):
     
 
 class GanBlock(nn.Module):
-    def __init__(self):
+    def __init__(self, block_dims):
         super().__init__()
     
         self.nnet= nn.Sequential(
@@ -145,12 +145,12 @@ class GanBlock(nn.Module):
         )
         
     def forward(self,x):
-        x=self.nnet(x) # why to add x
-        print()
+        return self.nnet(x) + x
       
 class Generator(nn.Module):
-    def __init__(self, n_layers, block_dims):
+    def __init__(self, n_layers, block_dims ):
         super().__init__()
+        
         self.gnet= nn.Sequential(
         *[GanBlock(block_dims) for _ in range(n_layers)]
         )
@@ -162,6 +162,7 @@ class Generator(nn.Module):
 class Critic(nn.Module):
     def __init__(self, n_layers, block_dims):
         super().__init__()
+        
         self.cnet= nn.Sequential(*[GanBlock(block_dims) for _ in range(n_layers)]
         )
     
