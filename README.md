@@ -6,7 +6,7 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 Problems:
 - Not every enhancer produced is present in the human genome
 - more training time
-- Ustable training
+- Unstable training
 
 
 LA-based-enhancer-GAN:
