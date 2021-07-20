@@ -77,7 +77,7 @@ def train(epcoh):
         
         grad_penalty = compute_grad_penalty(critic, z_real.data, z_fake.data)
 
-        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty # Add gradient penalty here
+        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty # check this point
         critic_loss += c_loss.item()
         
         c_loss.backward()
@@ -111,9 +111,9 @@ if __name__=='__main__':
     parser= argparse.ArgumentParser()
     
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--epochs', type=int, default=500)
     parser.add_argument('--batch-size', type=int, default=64)
-    parser.add_argument('--lr', type=float, default=1e-3)
+    parser.add_argument('--lr', type=float, default=2e-4)
     parser.add_argument('--dropout-size', type=float, default=0.1)
     parser.add_argument('--seq-length', type=int, default=131)
     parser.add_argument('--lambda-gp', type=float, default=10)
@@ -126,7 +126,7 @@ if __name__=='__main__':
     parser.add_argument('--interval', type=int, default=10)
     parser.add_argument('--device', type=str, default='cuda:3')
     parser.add_argument('--nuc-pair-size', type=int, default=83)
-    parser.add_argument('--num_layers',type=int, default=10)
+    parser.add_argument('--num_layers',type=int, default=4)
     args= parser.parse_args()
     
     
