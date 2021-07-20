@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from model import Autoencoder
+from models import Autoencoder
 from dataset import Sequences
 
 x = torch.tensor([70, 13, 52, 54, 18, 70,  8, 63, 42, 80, 73, 24, 73, 27, 38, 64,  6, 27,

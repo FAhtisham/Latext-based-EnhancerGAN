@@ -124,7 +124,6 @@ class Sequences(Dataset):
     def break_seq_into_smaller_chunks(self,seq):
         new_seqs=[]
         num_new_seqs = int(len(seq)/131)
-        print(num_new_seqs)
         start_index=0
         final_index=131
         if num_new_seqs >=2:
