@@ -167,4 +167,3 @@ class Critic(nn.Module):
     def forward(self,x):
         x= self.cnet(x)
         return x
-    
