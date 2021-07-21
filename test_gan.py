@@ -10,7 +10,7 @@ decoding= Sequences(131).nucleotides.decoding
 
 
 
-
+# variables
 epochs= 4000
 batch_size= 64
 lr= 5e-04 #4
