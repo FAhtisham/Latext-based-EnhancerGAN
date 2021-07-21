@@ -38,7 +38,7 @@ z= generator(noise[None, :,:])
 z=z.to("cuda:3")
 print(noise.size())
 logits= autoencoder.decoder(z).squeeze()
-print(logits.size())
+print("hello",logits.size())
 
 # gen_seq= logits.argmax(dim=0)
 # # print(gen_seq)

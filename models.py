@@ -138,8 +138,8 @@ class GanBlock(nn.Module):
     
         self.nnet= nn.Sequential(
         nn.Linear(block_dims, block_dims),
-        nn.ReLU(True),
-        nn.Linear(block_dims, block_dims)        
+        nn.ReLU(True)
+        #nn.Linear(block_dims, block_dims)        
         )
         
     def forward(self,x):

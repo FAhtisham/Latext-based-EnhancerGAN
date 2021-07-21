@@ -77,7 +77,7 @@ def train(epcoh):
         
         grad_penalty = compute_grad_penalty(critic, z_real.data, z_fake.data)
 
-        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty # check this point
+        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty # check this
         critic_loss += c_loss.item()
         
         c_loss.backward()
@@ -116,7 +116,7 @@ if __name__=='__main__':
     parser.add_argument('--lr', type=float, default=2e-4)
     parser.add_argument('--dropout-size', type=float, default=0.1)
     parser.add_argument('--seq-length', type=int, default=131)
-    parser.add_argument('--lambda-gp', type=float, default=10)
+    parser.add_argument('--lambda-gp', type=float, default=15)
     parser.add_argument('--n-critic', type=int, default=10)
     parser.add_argument('--bottleneck-dims', type=int, default=100)
     parser.add_argument('--block-dims', type=int, default=100)
