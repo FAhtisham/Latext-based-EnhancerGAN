@@ -21,7 +21,7 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 - 43011 experimentally defined enhancers from human genome
 
 
-How to use it ?
+### How to use it ?
 - Run the train_ae.py
 - Get the pretrained AE model
 - Run the test_ae.py
