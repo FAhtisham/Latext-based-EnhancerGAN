@@ -11,7 +11,9 @@ import torch.autograd as autograd
 from models import Autoencoder
 from models import GanBlock, Generator, Critic
 from dataset import load
+import math
 
+import matplotlib.pyplot as plt
 
 def compute_grad_penalty(critic, real_data, fake_data):
     B = real_data.size(0)
@@ -38,7 +40,26 @@ def compute_grad_penalty(critic, real_data, fake_data):
     grad_penalty = ((grads.norm(2, dim=1) - 1.) ** 2).mean()
     return grad_penalty
 
-
+def plot_losses(g_loss, c_loss ):    
+    plt.plot(g_loss)
+    plt.xlabel("Epochs")
+    plt.ylabel("W")
+    plt.title("Generator's Loss")
+    plt.savefig("gloss.png")
+    plt.clf()
+    
+    plt.plot(c_loss)
+    plt.ticklabel_format(style = 'plain')
+    plt.autoscale(tight=True)
+    plt.ylabel("log W")
+    plt.xlabel("Epochs")
+    plt.title("Critic's Loss")
+    plt.savefig("closs.png")
+    plt.clf()
+    
+closs_trace= []
+gloss_trace= []
+epochs_trace= []
 def train(epcoh):
     autoencoder.eval()
     generator.train()
@@ -47,6 +68,8 @@ def train(epcoh):
     critic_loss= 0.0
     generator_loss= 0.0
     g_batches= 0
+    
+
     for i, x in enumerate(train_loader):
         
         if torch.cuda.is_available():
@@ -77,7 +100,7 @@ def train(epcoh):
         
         grad_penalty = compute_grad_penalty(critic, z_real.data, z_fake.data)
 
-        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty # check this
+        c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty 
         critic_loss += c_loss.item()
         
         c_loss.backward()
@@ -102,7 +125,10 @@ def train(epcoh):
     critic_loss /= len(train_loader)
     
     print("(Train)", "epoch : ", epoch, "G loss : ", generator_loss, "C loss : ", critic_loss )
+    closs_trace.append(critic_loss)
+    gloss_trace.append(generator_loss)
     
+    plot_losses(gloss_trace, closs_trace)
     return (generator_loss, critic_loss)
         
 
@@ -111,13 +137,13 @@ if __name__=='__main__':
     parser= argparse.ArgumentParser()
     
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=500)
+    parser.add_argument('--epochs', type=int, default=100)
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--lr', type=float, default=2e-4)
     parser.add_argument('--dropout-size', type=float, default=0.1)
     parser.add_argument('--seq-length', type=int, default=131)
-    parser.add_argument('--lambda-gp', type=float, default=15)
-    parser.add_argument('--n-critic', type=int, default=10)
+    parser.add_argument('--lambda-gp', type=float, default=10)
+    parser.add_argument('--n-critic', type=int, default=5)
     parser.add_argument('--bottleneck-dims', type=int, default=100)
     parser.add_argument('--block-dims', type=int, default=100)
     parser.add_argument('--e-hidden-dims', type=int, default=100)
@@ -126,7 +152,7 @@ if __name__=='__main__':
     parser.add_argument('--interval', type=int, default=10)
     parser.add_argument('--device', type=str, default='cuda:3')
     parser.add_argument('--nuc-pair-size', type=int, default=83)
-    parser.add_argument('--num_layers',type=int, default=4)
+    parser.add_argument('--num_layers',type=int, default=6)
     args= parser.parse_args()
     
     

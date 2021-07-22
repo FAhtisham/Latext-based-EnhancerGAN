@@ -5,7 +5,6 @@ import numpy as np
 from models import Autoencoder, Generator
 from dataset import Sequences
 
-decoding= Sequences(131).nucleotides.decoding
 
 
 
@@ -29,7 +28,7 @@ autoencoder = Autoencoder( 83, embedding_dims, e_hidden_dims, bottleneck_dims, d
 autoencoder.load_state_dict(torch.load('ae.th', map_location='cpu'))
 autoencoder.eval()
 
-generator= Generator(4,100)
+generator= Generator(6,100)
 generator.load_state_dict(torch.load('generator.th', map_location='cpu'))
 generator.eval()
 
@@ -45,7 +44,10 @@ print("hello",logits.size())
 
 pred=[]
 for i in range(logits.size()[1]):
+    print(logits[:,i])
+    
     max= torch.argmax(logits[:,i])
+    print(max.item())
     pred.append(max.item())
 
 

@@ -138,12 +138,12 @@ class GanBlock(nn.Module):
     
         self.nnet= nn.Sequential(
         nn.Linear(block_dims, block_dims),
-        nn.ReLU(True)
-        #nn.Linear(block_dims, block_dims)        
+        nn.ReLU(True),
+        nn.Linear(block_dims, block_dims)        
         )
         
     def forward(self,x):
-        return self.nnet(x) #+ x
+        return self.nnet(x) + x
       
 class Generator(nn.Module):
     def __init__(self, n_layers, block_dims ):
