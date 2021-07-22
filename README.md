@@ -3,13 +3,13 @@
 This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN tries to solve the problems faced by 1d Conv based enhancer GAN.
 
 
-Problems:
+### Problems:
 - Not every enhancer produced is present in the human genome
 - more training time
 - Unstable training
 
 
-LA-based-enhancer-GAN:
+### LA-based-enhancer-GAN:
 - A pretrained AE to learn the continuous representation of AEs]
 - Less training data 
 - Less training time
@@ -17,11 +17,11 @@ LA-based-enhancer-GAN:
 
 
 
-Dataset:
+### Dataset:
 - 43011 experimentally defined enhancers from human genome
 
 
-How to use it ?
+### How to use it ?
 - Run the train_ae.py
 - Get the pretrained AE model
 - Run the test_ae.py
