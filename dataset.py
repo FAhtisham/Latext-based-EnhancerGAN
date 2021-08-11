@@ -45,11 +45,14 @@ class Nucleotides:
 
 
 class Sequences(Dataset):
-    def __init__(self, seq_len=131):
+    def __init__(self, seq_len):
       self.seq_len= seq_len
       print(self.seq_len)
       self.seqs= self.convert_seqs_to_words(self.load_data())
+      print("Length of Enhancer Sequences 1, ", len(self.seqs))
       self.seqs= self.get_size_specific_seqs(self.seqs)
+      print("Length of Enhancer Sequences 2, ", len(self.seqs))
+
       self.nucleotides= Nucleotides(self.seqs)
     
 
@@ -72,6 +75,8 @@ class Sequences(Dataset):
           sequences.append(seq)
       print("Sequences Read Succesfully !!!!")
       print("Total Raw Sequences: ",len(sequences))
+      
+      self.get_size_stats(sequences)
       return sequences
     
     def add_padding(self,seq, p_len):
@@ -109,11 +114,11 @@ class Sequences(Dataset):
       final_sequences=[]
       for i in range(len(seqs)):
         if (len(seqs[i]) == 131):
-          final_sequences.append(seqs[i])
-        elif (len(seqs[i])>131):
-            new_seqs=self.break_seq_into_smaller_chunks(seqs[i])
-            for i in range(len(new_seqs)):
-                final_sequences.append(new_seqs[i])
+            final_sequences.append(seqs[i])
+        # elif (len(seqs[i])>131):
+        #     new_seqs=self.break_seq_into_smaller_chunks(seqs[i])
+        #     for i in range(len(new_seqs)):
+        #         final_sequences.append(new_seqs[i])
       print("Now the total seqs are:", len(final_sequences))
       
       # for i in range(len(final_sequences)):
@@ -144,8 +149,44 @@ class Sequences(Dataset):
     def __getitem__(self,i):
       return torch.from_numpy(self.encode(self.seqs[i]))
 
+    def get_size_stats(self, f_sequences):
+      print("Calculating the size statistics...")
+      sizes=[]
+      for i in range(len(f_sequences)):
+        if(len(f_sequences[i]) not in sizes):
+          sizes.append(len(f_sequences[i]))
+
+
+      import numpy
+      a = np.zeros(shape=(len(sizes)))
+      for i in range(len(f_sequences)):
+        for j in range(len(sizes)):
+          if (len(f_sequences[i]) == sizes[j]):
+              a[j]+=1
+
+      # print(a)
+      # print(sizes)
+      tuple_com = zip(sizes, list(a))
+      with open('your_file.txt', 'w') as f:
+        for item,item2 in tuple_com:
+          f.write(str(item) + " " + str(item2) + "\n")
+      f.close()
+      
+      
+      print("The max number : ",np.max(a))
+      # final_sequences = []
+      # for i in range(len(f_sequences)):
+      #   if (len(f_sequences[i]) == 131):
+      #     final_sequences.append(f_sequences[i])
+
+      # print(len(final_sequences))
+        
+      
+
 
 
 def load(batch_size, seq_len):
   data= Sequences(seq_len)
+  for i in range (3):
+      print(data.seqs[i])
   return (DataLoader(data, batch_size, shuffle=True), data.nucleotides)

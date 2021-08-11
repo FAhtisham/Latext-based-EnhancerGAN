@@ -28,7 +28,7 @@ autoencoder = Autoencoder( 83, embedding_dims, e_hidden_dims, bottleneck_dims, d
 autoencoder.load_state_dict(torch.load('ae.th', map_location='cpu'))
 autoencoder.eval()
 
-generator= Generator(6,100)
+generator= Generator(1,100)
 generator.load_state_dict(torch.load('generator.th', map_location='cpu'))
 generator.eval()
 

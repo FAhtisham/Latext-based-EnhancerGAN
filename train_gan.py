@@ -137,8 +137,8 @@ if __name__=='__main__':
     parser= argparse.ArgumentParser()
     
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=100)
-    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--epochs', type=int, default=166)
+    parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--lr', type=float, default=2e-4)
     parser.add_argument('--dropout-size', type=float, default=0.1)
     parser.add_argument('--seq-length', type=int, default=131)
@@ -152,7 +152,7 @@ if __name__=='__main__':
     parser.add_argument('--interval', type=int, default=10)
     parser.add_argument('--device', type=str, default='cuda:3')
     parser.add_argument('--nuc-pair-size', type=int, default=83)
-    parser.add_argument('--num_layers',type=int, default=6)
+    parser.add_argument('--num_layers',type=int, default=1)
     args= parser.parse_args()
     
     
@@ -163,6 +163,7 @@ if __name__=='__main__':
     
     autoencoder= Autoencoder(args.nuc_pair_size, args.embedding_dims, args.e_hidden_dims, args.bottleneck_dims, args.d_hidden_dims, args.seq_length, args.dropout_size).to(args.device)
     autoencoder.load_state_dict(torch.load('ae.th', map_location=lambda x,y: x))
+    autoencoder.eval()
     print("\nAuroencoder model:",autoencoder,"\n")
     
     

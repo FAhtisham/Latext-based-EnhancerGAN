@@ -14,7 +14,7 @@ import collections
 from tqdm import tqdm
 
 from dataset import load
-from model import Autoencoder
+from models import Autoencoder
 
 import argparse
 
@@ -39,21 +39,13 @@ def train(epoch):
 
     if interval > 0 and i % interval ==0:
       print("epoch: ", epoch, " batch: ", batch_size*i,"/", len(train_loader.dataset), " loss:", loss.item())
-      # print("epoch: {} | Batch:{}/{} ({:0.f}%)| Loss:{:.6f}".format(
-      #     epoch, batch_size*i, len(train_loader.dataset),
-      #     100.*(batch_size*i)/len(train_loader.dataset),
-      #     loss.item
-        
-      # ))
+
 
   train_loss /= len(train_loader)
   print('(Train) Epoch: {} | loss {:.4f}'.format(epoch, train_loss))
   return train_loss
   
   
-  
- 
- 
 '''
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=0)
@@ -70,8 +62,8 @@ print(args)
 '''
 
 seed= 0
-epochs= 4000
-batch_size= 64
+epochs= 5000
+batch_size= 32
 lr= 5e-04 #4
 dropout= 0.1
 embedding_dims=40
@@ -97,10 +89,32 @@ optimizer= optim.Adam(model.parameters(), lr=lr)
 
 print("\n Overall arhitecture of the model:\n",model)
 
-best_loss = 2.9
-for epoch in range(epochs):
-  loss = train(epoch)
-  if loss < best_loss:
-      best_loss= loss
-      print('saved')
-      torch.save(model.state_dict(), 'ae.th')
+
+
+
+
+for i,x in enumerate(train_loader):
+    optimizer.zero_grad()
+    x = x.to(device)
+    print(x[0])
+    break
+
+
+
+
+
+# best_loss = 2.9
+# total_loss = []
+# for epoch in range(epochs):
+#   loss = train(epoch)
+#   total_loss.append(loss)
+  
+#   if loss < best_loss:
+#       best_loss= loss
+#       print('saved')
+#       torch.save(model.state_dict(), 'ae.th')
+      
+# plt.plot(total_loss)
+# plt.xlabel("Epochs")
+# plt.ylabel("Loss")
+# plt.savefig('ae_loss.png')
