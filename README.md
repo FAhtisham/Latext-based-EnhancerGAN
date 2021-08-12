@@ -35,5 +35,5 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 - The work successfuly generates enhancers of similar size e.g. in our case it prodcues 131 Nucs Enhancers etc.
 
 ![Autoencoder Loss](ae_loss.png)
-![Critic Loss](closs.png)
-![Genera Loss](gloss.png)
+![Critic Loss](closs.png) | ![Genera Loss](gloss.png)
+
