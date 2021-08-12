@@ -43,5 +43,6 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 
 
 
-
-https://www.ncbi.nlm.nih.gov/projects/msaviewer/?anchor=0&coloring=diff&key=NCID_1_1226708_130.14.18.128_9147_1628777136_3925140952_0MetA0__S_NC_PhyloTree&columns=d:120,b:55,x:17,aln,e:55,o:150
+<p align="middle"> 
+  <img src="/al1.svg" width="800" />
+</p>
