@@ -1,4 +1,5 @@
 # Latext-based-EnhancerGAN
+#### Note: This study is inspired by the work of LATEXT-GAN
 
 This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN tries to solve the problems faced by 1d Conv based enhancer GAN.
 
