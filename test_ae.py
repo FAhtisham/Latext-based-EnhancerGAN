@@ -59,7 +59,7 @@ print(logits.size() )
 
 
 print(logits.size())
-print(logits[0,:,1])
+# print(logits[0,:,1])
 
 pred=[]
 for i in range(logits.size()[2]):

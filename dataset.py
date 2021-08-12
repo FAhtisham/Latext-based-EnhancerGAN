@@ -187,6 +187,4 @@ class Sequences(Dataset):
 
 def load(batch_size, seq_len):
   data= Sequences(seq_len)
-  for i in range (3):
-      print(data.seqs[i])
   return (DataLoader(data, batch_size, shuffle=True), data.nucleotides)

@@ -32,29 +32,34 @@ generator= Generator(1,100)
 generator.load_state_dict(torch.load('generator.th', map_location='cpu'))
 generator.eval()
 
-noise=torch.FloatTensor(np.random.normal(0,1,(1,100)))
-z= generator(noise[None, :,:])
-z=z.to("cuda:3")
-print(noise.size())
-logits= autoencoder.decoder(z).squeeze()
-print("hello",logits.size())
-
-# gen_seq= logits.argmax(dim=0)
-# # print(gen_seq)
-
-pred=[]
-for i in range(logits.size()[1]):
-    print(logits[:,i])
-    
-    max= torch.argmax(logits[:,i])
-    print(max.item())
-    pred.append(max.item())
-
 
 
 decoding= Sequences(131).nucleotides.decoding
-recon_str_=''
-print(pred)
-for c in pred:
-    recon_str_+=decoding.get(c)
-print(recon_str_)
+
+
+
+for i in range(15): 
+    noise=torch.FloatTensor(np.random.normal(0,1,(1,100)))
+    z= generator(noise[None, :,:])
+    z=z.to("cuda:3")
+    logits= autoencoder.decoder(z).squeeze()
+    print("hello",logits.size())
+    print("hello",logits[1])
+
+    # gen_seq= logits.argmax(dim=0)
+    # # print(gen_seq)
+
+    pred=[]
+    for i in range(logits.size()[1]):
+        # print(logits[:,i])
+    
+        max= torch.argmax(logits[:,i])
+        print(max.item()," ", logits[max,i].item() )
+        pred.append(max.item())
+
+
+
+    recon_str_=''
+    for c in pred:
+        recon_str_+=decoding.get(c)
+    print(recon_str_)

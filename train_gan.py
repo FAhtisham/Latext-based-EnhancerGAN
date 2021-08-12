@@ -92,15 +92,19 @@ def train(epcoh):
             
         with torch.no_grad():
             z_real= autoencoder(x)[0]
+        # print(z_real[0])
+        
         #print(z_real.size())
         z_fake= generator(noise)
         
         real_score= critic(z_real)
+        # print(real_score)
         fake_score= critic(z_fake)
-        
+        # print(fake_score)
         grad_penalty = compute_grad_penalty(critic, z_real.data, z_fake.data)
 
         c_loss= -torch.mean(real_score) + torch.mean(fake_score) + args.lambda_gp*grad_penalty 
+        # c_loss= torch.mean(real_score) - torch.mean(fake_score) + args.lambda_gp*grad_penalty 
         critic_loss += c_loss.item()
         
         c_loss.backward()
@@ -113,6 +117,8 @@ def train(epcoh):
             fake_score = critic(generator(noise))
             
             g_loss= -torch.mean(fake_score) 
+            #g_loss= torch.mean(fake_score) 
+
             generator_loss += g_loss.item()
             
             g_loss.backward()
@@ -137,7 +143,7 @@ if __name__=='__main__':
     parser= argparse.ArgumentParser()
     
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=166)
+    parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--lr', type=float, default=2e-4)
     parser.add_argument('--dropout-size', type=float, default=0.1)
@@ -188,7 +194,6 @@ if __name__=='__main__':
     
     for epoch in range(args.epochs):
         g_loss, c_loss= train(epoch)
-        
         loss= g_loss + c_loss
         
         if loss < best_loss:
