@@ -37,3 +37,11 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 ![Autoencoder Loss](ae_loss.png)
 ![Critic Loss](closs.png) | ![Genera Loss](gloss.png)
 
+
+
+
+<p float="left">
+  <img src="/closs.png" width="100" />
+  <img src="/gloss.png" width="100" /> 
+  <img src="/ae_loss.png" width="100" />
+</p>
