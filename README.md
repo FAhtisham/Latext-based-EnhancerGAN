@@ -52,4 +52,4 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 
 
 
-## Enjoy Bio Deep Learning  
+## Enjoy Deep Learning in Biology   :smiley:
