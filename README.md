@@ -35,7 +35,7 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 - The work successfuly generates enhancers of similar size e.g. in our case it prodcues 131 Nucs Enhancers etc.
 
 
-<p float="left">
+<p align="middle"> 
   <img src="/closs.png" width="400" />
   <img src="/gloss.png" width="400" /> 
   <img src="/ae_loss.png" width="400" />
