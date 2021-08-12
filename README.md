@@ -34,6 +34,6 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 ### Results
 - The work successfuly generates enhancers of similar size e.g. in our case it prodcues 131 Nucs Enhancers etc.
 
-
-![alt text](https://github.com/[FAtisham]/[Latext-based-EnhancerGAN]/blob/[branch]/closs.png?raw=true)
+![CLOSS](closs.png)
+%![alt text](https://github.com/[FAtisham]/[Latext-based-EnhancerGAN]/blob/[branch]/closs.png?raw=true)
 
