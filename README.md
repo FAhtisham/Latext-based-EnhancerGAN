@@ -21,8 +21,11 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 ### Dataset:
 - 43011 experimentally defined enhancers from human genome
 
+### Requirements
+- Information related to the version of the libraries can be found in the requirements.txt file.
 
 ### How to use it ?
+- Run Requirements.txt
 - Run the train_ae.py
 - Get the pretrained AE model
 - Run the test_ae.py
