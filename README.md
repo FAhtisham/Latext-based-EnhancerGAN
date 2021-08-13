@@ -25,7 +25,7 @@ This work is the extension of the original Enahcner GAN. LA-based-enhancer-GAN t
 - Information related to the version of the libraries can be found in the requirements.txt file.
 
 ### How to use it ?
-- Run Requirements.txt
+- Install Libraries using requirements.txt
 - Run the train_ae.py
 - Get the pretrained AE model
 - Run the test_ae.py
