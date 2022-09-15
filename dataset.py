@@ -29,7 +29,6 @@ class Nucleotides:
     for seq in tqdm(seqs):
       nuc_pairs.update(seq)
 
-    # check why this statement is so important (84, remains same without it)
     for nucs in list(nuc_pairs.keys()):
       if nuc_pairs[nucs] < clip:
         nuc_pairs.pop(nucs)
@@ -174,12 +173,7 @@ class Sequences(Dataset):
       
       
       print("The max number : ",np.max(a))
-      # final_sequences = []
-      # for i in range(len(f_sequences)):
-      #   if (len(f_sequences[i]) == 131):
-      #     final_sequences.append(f_sequences[i])
 
-      # print(len(final_sequences))
         
       
 
