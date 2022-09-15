@@ -98,23 +98,3 @@ for i,x in enumerate(train_loader):
     x = x.to(device)
     print(x[0])
     break
-
-
-
-
-
-# best_loss = 2.9
-# total_loss = []
-# for epoch in range(epochs):
-#   loss = train(epoch)
-#   total_loss.append(loss)
-  
-#   if loss < best_loss:
-#       best_loss= loss
-#       print('saved')
-#       torch.save(model.state_dict(), 'ae.th')
-      
-# plt.plot(total_loss)
-# plt.xlabel("Epochs")
-# plt.ylabel("Loss")
-# plt.savefig('ae_loss.png')
